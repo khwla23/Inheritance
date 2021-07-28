@@ -1,2 +1,2 @@
-# Student-in-a-course
+# person is an employee or a student
 java
