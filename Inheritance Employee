@@ -1,0 +1,208 @@
+
+package lab5_inheritance;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author khwla 
+ */
+
+class Employee{
+    private String name;
+    private int ID;
+    private double pay;
+    
+    public Employee(){
+        this.name = "null";
+        this.ID = 000;
+    }
+        
+    public double Earnings(){
+        return pay;
+    }
+}
+    
+class Hourly_E extends Employee{
+    private String name;
+    private int ID;
+    private int num_of_hours;
+    private double hourly_rate;
+    private double pay1;
+        
+    public Hourly_E(String name, int ID, int num_of_hours,double hourly_rate){
+        this.name = name;
+        this.ID = ID;
+        this.num_of_hours = num_of_hours;
+        this.hourly_rate = hourly_rate;
+    }
+      
+    public double Earnings(){
+        pay1 = hourly_rate * num_of_hours;
+        return pay1;
+    }
+        
+    public String toString(){
+        return "Hourly Employee[Name = "+name+", ID = "+ID+" , Earning = "+pay1+"]";
+    }
+        
+}
+    
+    class Salary_E extends Employee{
+        private String name;
+        private int ID;
+        private double Salary;
+        
+        public Salary_E(String name, int ID, double Salary){
+            this.name = name;
+            this.ID = ID;
+            this.Salary = Salary;
+        }
+        
+        public double Earnings(){
+            return Salary;
+        }
+        
+        public String toString(){
+        return "Salary Employee[Name = "+name+", ID = "+ID+" , Earning = "+Salary+"]";
+        }
+    }
+    
+    class Commission_E extends Employee{
+        private String name;
+        private int ID;
+        private double sales;
+        private double commission;
+        private double pay2;
+        
+        public Commission_E(String name, int ID, double commission,double sales){
+            this.name = name;
+            this.ID = ID;
+            this.commission = commission;
+            this.sales = sales;
+        }
+        
+        //Override
+        public double Earnings(){
+            pay2 = sales * (commission / 100);
+            return pay2;
+        }
+        
+        public String toString(){
+        return "Commission Employee[Name = "+name+", ID = "+ID+" , Earning = "+pay2+"]";
+        }
+    }
+
+public class Lab5_inheritance {
+    
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("How many Employees do you want to input? ");
+        int size = input.nextInt();
+        
+        Employee[] arr = new Employee[size];
+        int index = 0;
+        char cont;
+        
+        do{
+            
+            if (index <= size){
+                System.out.println("The employee you want to enter is:");
+                System.out.println("1) Hourly Employee\n2) Salary Employee.\n3) Commission Employee.\nEnter your choice");
+                int choice = input.nextInt();
+                switch (choice) {
+                    case 1:
+                        System.out.println("Enter the name of Employee");
+                        String name = input.next();
+                        
+                        System.out.println("Enter Employee ID.");
+                        int Id = input.nextInt();
+                        
+                        System.out.println("Enter Hourly rates.");
+                        double hrates = input.nextDouble();
+                        
+                        System.out.println("Enter total numbers of hour he has worked.");
+                        int hours = input.nextInt();
+                        
+                        arr[index] = new Hourly_E(name, Id, hours ,hrates);
+                        index++;
+                        
+                        break;
+                    case 2:
+                        System.out.println("Enter the name of Employee");
+                        String name1 = input.next();
+                        
+                        System.out.println("Enter Employee ID.");
+                        int Id1 = input.nextInt();
+                        
+                        System.out.println("Enter Employee's Salary.");
+                        double sal = input.nextDouble();
+
+                        arr[index] = new Salary_E(name1 ,Id1 ,sal);
+                        index++;
+                        
+                        break;
+                    case 3:
+                        System.out.println("Enter the name of Employee");
+                        String nam = input.next();
+                        
+                        System.out.println("Enter Employee ID.");
+                        int id = input.nextInt();
+                        
+                        System.out.println("Enter total sales employee has made");
+                        double sales = input.nextDouble();
+                        
+                        System.out.println("Enter employee commission");
+                        double per = input.nextDouble();
+                        
+                        arr[index] = new Commission_E(nam,id ,per, sales);
+                        index++;
+                        
+                        break;
+                        
+                    default:
+                        System.out.println("Wrong choice");
+                        break;
+                }
+                
+            }
+            else{
+                System.out.println("Array size has been reached. you can not add more person.");
+                break;}
+            System.out.println("\nDo you want to enter another Employee? enter your choice by pressing Y for yes and N for no.");
+            cont = input.next().charAt(0);
+            
+        }while (cont == 'y' || cont == 'Y');
+        
+        
+        System.out.println("see the status of employees. Enter your choice.");
+        System.out.println("1) Employees's Earnings\n2) Employee's Information");
+        int n = input.nextInt();
+        switch(n){
+            case 1:
+                System.out.println("\nEarnings of Employees");
+                int i;
+                for (i = 0 ; i < index ; i++){
+                    System.out.print(i+1+")\t");
+                    System.out.println(arr[i].Earnings());
+                }
+                break;
+                
+            case 2:
+                System.out.println("\nEmployees Information");
+                
+                for (i = 0 ; i < index ; i++){
+                    System.out.print(i+1+")\t");
+                    System.out.println(arr[i].toString());
+                }
+                break;
+                
+            default:
+                System.out.println("Wrong choice");
+                break;
+        }
+
+        
+    }
+    
+}
